@@ -29,11 +29,11 @@ extension Clients {
   protocol AppHubStub {
     func lookupServiceProjectAttachment(
       request: LookupServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.LookupServiceProjectAttachmentResponse
+    ) async throws -> GoogleCloudAppHubV1.LookupServiceProjectAttachmentResponse
 
     func listServiceProjectAttachments(
       request: ListServiceProjectAttachmentsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListServiceProjectAttachmentsResponse
+    ) async throws -> GoogleCloudAppHubV1.ListServiceProjectAttachmentsResponse
 
     func createServiceProjectAttachment(
       request: CreateServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
@@ -41,7 +41,7 @@ extension Clients {
 
     func getServiceProjectAttachment(
       request: GetServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ServiceProjectAttachment
+    ) async throws -> GoogleCloudAppHubV1.ServiceProjectAttachment
 
     func deleteServiceProjectAttachment(
       request: DeleteServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
@@ -49,23 +49,23 @@ extension Clients {
 
     func detachServiceProjectAttachment(
       request: DetachServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.DetachServiceProjectAttachmentResponse
+    ) async throws -> GoogleCloudAppHubV1.DetachServiceProjectAttachmentResponse
 
     func listDiscoveredServices(
       request: ListDiscoveredServicesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListDiscoveredServicesResponse
+    ) async throws -> GoogleCloudAppHubV1.ListDiscoveredServicesResponse
 
     func getDiscoveredService(
       request: GetDiscoveredServiceRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.DiscoveredService
+    ) async throws -> GoogleCloudAppHubV1.DiscoveredService
 
     func lookupDiscoveredService(
       request: LookupDiscoveredServiceRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.LookupDiscoveredServiceResponse
+    ) async throws -> GoogleCloudAppHubV1.LookupDiscoveredServiceResponse
 
     func listServices(
       request: ListServicesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListServicesResponse
+    ) async throws -> GoogleCloudAppHubV1.ListServicesResponse
 
     func createService(
       request: CreateServiceRequest, options: GoogleCloudGax.RequestOptions
@@ -73,7 +73,7 @@ extension Clients {
 
     func getService(
       request: GetServiceRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.Service
+    ) async throws -> GoogleCloudAppHubV1.Service
 
     func updateService(
       request: UpdateServiceRequest, options: GoogleCloudGax.RequestOptions
@@ -85,19 +85,19 @@ extension Clients {
 
     func listDiscoveredWorkloads(
       request: ListDiscoveredWorkloadsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListDiscoveredWorkloadsResponse
+    ) async throws -> GoogleCloudAppHubV1.ListDiscoveredWorkloadsResponse
 
     func getDiscoveredWorkload(
       request: GetDiscoveredWorkloadRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.DiscoveredWorkload
+    ) async throws -> GoogleCloudAppHubV1.DiscoveredWorkload
 
     func lookupDiscoveredWorkload(
       request: LookupDiscoveredWorkloadRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.LookupDiscoveredWorkloadResponse
+    ) async throws -> GoogleCloudAppHubV1.LookupDiscoveredWorkloadResponse
 
     func listWorkloads(
       request: ListWorkloadsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListWorkloadsResponse
+    ) async throws -> GoogleCloudAppHubV1.ListWorkloadsResponse
 
     func createWorkload(
       request: CreateWorkloadRequest, options: GoogleCloudGax.RequestOptions
@@ -105,7 +105,7 @@ extension Clients {
 
     func getWorkload(
       request: GetWorkloadRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.Workload
+    ) async throws -> GoogleCloudAppHubV1.Workload
 
     func updateWorkload(
       request: UpdateWorkloadRequest, options: GoogleCloudGax.RequestOptions
@@ -117,7 +117,7 @@ extension Clients {
 
     func listApplications(
       request: ListApplicationsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListApplicationsResponse
+    ) async throws -> GoogleCloudAppHubV1.ListApplicationsResponse
 
     func createApplication(
       request: CreateApplicationRequest, options: GoogleCloudGax.RequestOptions
@@ -125,7 +125,7 @@ extension Clients {
 
     func getApplication(
       request: GetApplicationRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.Application
+    ) async throws -> GoogleCloudAppHubV1.Application
 
     func updateApplication(
       request: UpdateApplicationRequest, options: GoogleCloudGax.RequestOptions
@@ -182,7 +182,7 @@ extension Clients {
 
     public func lookupServiceProjectAttachment(
       request: LookupServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.LookupServiceProjectAttachmentResponse {
+    ) async throws -> GoogleCloudAppHubV1.LookupServiceProjectAttachmentResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -197,12 +197,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.LookupServiceProjectAttachmentResponse.self, from: data)
+        GoogleCloudAppHubV1.LookupServiceProjectAttachmentResponse.self, from: data)
     }
 
     public func listServiceProjectAttachments(
       request: ListServiceProjectAttachmentsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListServiceProjectAttachmentsResponse {
+    ) async throws -> GoogleCloudAppHubV1.ListServiceProjectAttachmentsResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -222,7 +222,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.ListServiceProjectAttachmentsResponse.self, from: data)
+        GoogleCloudAppHubV1.ListServiceProjectAttachmentsResponse.self, from: data)
     }
 
     public func createServiceProjectAttachment(
@@ -256,7 +256,7 @@ extension Clients {
 
     public func getServiceProjectAttachment(
       request: GetServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ServiceProjectAttachment {
+    ) async throws -> GoogleCloudAppHubV1.ServiceProjectAttachment {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -271,7 +271,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.ServiceProjectAttachment.self, from: data)
+        GoogleCloudAppHubV1.ServiceProjectAttachment.self, from: data)
     }
 
     public func deleteServiceProjectAttachment(
@@ -298,7 +298,7 @@ extension Clients {
 
     public func detachServiceProjectAttachment(
       request: DetachServiceProjectAttachmentRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.DetachServiceProjectAttachmentResponse {
+    ) async throws -> GoogleCloudAppHubV1.DetachServiceProjectAttachmentResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -315,12 +315,12 @@ extension Clients {
       req.httpBody = try JSONEncoder().encode(request)
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.DetachServiceProjectAttachmentResponse.self, from: data)
+        GoogleCloudAppHubV1.DetachServiceProjectAttachmentResponse.self, from: data)
     }
 
     public func listDiscoveredServices(
       request: ListDiscoveredServicesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListDiscoveredServicesResponse {
+    ) async throws -> GoogleCloudAppHubV1.ListDiscoveredServicesResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -340,12 +340,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.ListDiscoveredServicesResponse.self, from: data)
+        GoogleCloudAppHubV1.ListDiscoveredServicesResponse.self, from: data)
     }
 
     public func getDiscoveredService(
       request: GetDiscoveredServiceRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.DiscoveredService {
+    ) async throws -> GoogleCloudAppHubV1.DiscoveredService {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -360,12 +360,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.DiscoveredService.self, from: data)
+        GoogleCloudAppHubV1.DiscoveredService.self, from: data)
     }
 
     public func lookupDiscoveredService(
       request: LookupDiscoveredServiceRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.LookupDiscoveredServiceResponse {
+    ) async throws -> GoogleCloudAppHubV1.LookupDiscoveredServiceResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -382,12 +382,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.LookupDiscoveredServiceResponse.self, from: data)
+        GoogleCloudAppHubV1.LookupDiscoveredServiceResponse.self, from: data)
     }
 
     public func listServices(
       request: ListServicesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListServicesResponse {
+    ) async throws -> GoogleCloudAppHubV1.ListServicesResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -407,7 +407,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.ListServicesResponse.self, from: data)
+        GoogleCloudAppHubV1.ListServicesResponse.self, from: data)
     }
 
     public func createService(
@@ -439,7 +439,7 @@ extension Clients {
 
     public func getService(
       request: GetServiceRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.Service {
+    ) async throws -> GoogleCloudAppHubV1.Service {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -454,7 +454,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.Service.self, from: data)
+        GoogleCloudAppHubV1.Service.self, from: data)
     }
 
     public func updateService(
@@ -508,7 +508,7 @@ extension Clients {
 
     public func listDiscoveredWorkloads(
       request: ListDiscoveredWorkloadsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListDiscoveredWorkloadsResponse {
+    ) async throws -> GoogleCloudAppHubV1.ListDiscoveredWorkloadsResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -528,12 +528,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.ListDiscoveredWorkloadsResponse.self, from: data)
+        GoogleCloudAppHubV1.ListDiscoveredWorkloadsResponse.self, from: data)
     }
 
     public func getDiscoveredWorkload(
       request: GetDiscoveredWorkloadRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.DiscoveredWorkload {
+    ) async throws -> GoogleCloudAppHubV1.DiscoveredWorkload {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -548,12 +548,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.DiscoveredWorkload.self, from: data)
+        GoogleCloudAppHubV1.DiscoveredWorkload.self, from: data)
     }
 
     public func lookupDiscoveredWorkload(
       request: LookupDiscoveredWorkloadRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.LookupDiscoveredWorkloadResponse {
+    ) async throws -> GoogleCloudAppHubV1.LookupDiscoveredWorkloadResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -570,12 +570,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.LookupDiscoveredWorkloadResponse.self, from: data)
+        GoogleCloudAppHubV1.LookupDiscoveredWorkloadResponse.self, from: data)
     }
 
     public func listWorkloads(
       request: ListWorkloadsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListWorkloadsResponse {
+    ) async throws -> GoogleCloudAppHubV1.ListWorkloadsResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -595,7 +595,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.ListWorkloadsResponse.self, from: data)
+        GoogleCloudAppHubV1.ListWorkloadsResponse.self, from: data)
     }
 
     public func createWorkload(
@@ -627,7 +627,7 @@ extension Clients {
 
     public func getWorkload(
       request: GetWorkloadRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.Workload {
+    ) async throws -> GoogleCloudAppHubV1.Workload {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -642,7 +642,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.Workload.self, from: data)
+        GoogleCloudAppHubV1.Workload.self, from: data)
     }
 
     public func updateWorkload(
@@ -697,7 +697,7 @@ extension Clients {
 
     public func listApplications(
       request: ListApplicationsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.ListApplicationsResponse {
+    ) async throws -> GoogleCloudAppHubV1.ListApplicationsResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -717,7 +717,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.ListApplicationsResponse.self, from: data)
+        GoogleCloudAppHubV1.ListApplicationsResponse.self, from: data)
     }
 
     public func createApplication(
@@ -749,7 +749,7 @@ extension Clients {
 
     public func getApplication(
       request: GetApplicationRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudApphubV1.Application {
+    ) async throws -> GoogleCloudAppHubV1.Application {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -764,7 +764,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudApphubV1.Application.self, from: data)
+        GoogleCloudAppHubV1.Application.self, from: data)
     }
 
     public func updateApplication(
