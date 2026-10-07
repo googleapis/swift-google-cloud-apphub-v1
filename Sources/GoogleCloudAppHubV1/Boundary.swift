@@ -17,27 +17,13 @@
 import Foundation
 @_spi(GoogleCloudInternal) public import GoogleWKT
 
-/// Application defines the governance boundary for App Hub entities that
-/// perform a logical end-to-end business function.
-/// App Hub supports application level IAM permission to align with governance
-/// requirements.
-public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
+/// Application management boundary.
+public struct Boundary: Codable, Equatable, GoogleWKT._AnyPackable,
   Sendable
 {
-  /// Identifier. The resource name of an Application. Format:
-  /// `"projects/{host-project-id}/locations/{location}/applications/{application-id}"`
+  /// Identifier. The resource name of the boundary.
+  /// Format: "projects/{project}/locations/{location}/boundary"
   public var name: Swift.String = Swift.String()
-
-  /// Optional. User-defined name for the Application.
-  /// Can have a maximum length of 63 characters.
-  public var displayName: Swift.String = Swift.String()
-
-  /// Optional. User-defined description of an Application.
-  /// Can have a maximum length of 2048 characters.
-  public var description: Swift.String = Swift.String()
-
-  /// Optional. Consumer provided attributes.
-  public var attributes: Attributes? = nil
 
   /// Output only. Create time.
   public var createTime: GoogleWKT.WKTTimestamp? = nil
@@ -45,27 +31,15 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
   /// Output only. Update time.
   public var updateTime: GoogleWKT.WKTTimestamp? = nil
 
-  /// Required. Immutable. Defines what data can be included into this
-  /// Application. Limits which Services and Workloads can be registered.
-  public var scope: Scope? = nil
+  /// Output only. Boundary type.
+  public var type: Boundary.Type_ = Boundary.Type_()
 
-  /// Output only. A universally unique identifier (in UUID4 format) for the
-  /// `Application`.
-  public var uid: Swift.String = Swift.String()
-
-  /// Output only. Application state.
-  public var state: Application.State = Application.State()
-
-  /// Output only. Properties of an underlying cloud resource that can comprise
-  /// an Application.
-  public var applicationProperties: ApplicationProperties? = nil
-
-  /// Output only. Application type.
-  public var applicationType: ApplicationType? = nil
+  /// The scope defining the boundary.
+  public var scope: ScopeOneOf? = nil
 
   @_spi(GoogleCloudInternal) public var _unknownFields: GoogleWKT._UnknownFields = .init()
 
-  /// Initialize a new instance of `Application`.
+  /// Initialize a new instance of `Boundary`.
   public init() {}
 
   /// Use `config` to return a new instance of this object, with some fields updated.
@@ -73,7 +47,7 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
   /// Commonly used to initialize the value, for example:
   ///
   /// ```
-  /// let value = Application().with { $0.name = ... }
+  /// let value = Boundary().with { $0.crmNode = ... }
   /// ```
   public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
     var copy = self
@@ -87,30 +61,18 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
     init(stringValue: Swift.String) { self.stringValue = stringValue }
     init?(intValue: Swift.Int) { nil }
 
+    static let crmNode = CodingKeys(stringValue: "crmNode")
     static let name = CodingKeys(stringValue: "name")
-    static let displayName = CodingKeys(stringValue: "displayName")
-    static let description = CodingKeys(stringValue: "description")
-    static let attributes = CodingKeys(stringValue: "attributes")
     static let createTime = CodingKeys(stringValue: "createTime")
     static let updateTime = CodingKeys(stringValue: "updateTime")
-    static let scope = CodingKeys(stringValue: "scope")
-    static let uid = CodingKeys(stringValue: "uid")
-    static let state = CodingKeys(stringValue: "state")
-    static let applicationProperties = CodingKeys(stringValue: "applicationProperties")
-    static let applicationType = CodingKeys(stringValue: "applicationType")
+    static let type = CodingKeys(stringValue: "type")
 
     static let _knownKeys: Set<Swift.String> = [
+      "crmNode",
       "name",
-      "displayName",
-      "description",
-      "attributes",
       "createTime",
       "updateTime",
-      "scope",
-      "uid",
-      "state",
-      "applicationProperties",
-      "applicationType",
+      "type",
     ]
   }
 
@@ -119,28 +81,28 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
     if let value = try container.decodeIfPresent(Swift.String.self, forKey: .name) {
       self.name = value
     }
-    if let value = try container.decodeIfPresent(Swift.String.self, forKey: .displayName) {
-      self.displayName = value
-    }
-    if let value = try container.decodeIfPresent(Swift.String.self, forKey: .description) {
-      self.description = value
-    }
-    self.attributes = try container.decodeIfPresent(Attributes.self, forKey: .attributes)
     self.createTime = try container.decodeIfPresent(
       GoogleWKT.WKTTimestamp.self, forKey: .createTime)
     self.updateTime = try container.decodeIfPresent(
       GoogleWKT.WKTTimestamp.self, forKey: .updateTime)
-    self.scope = try container.decodeIfPresent(Scope.self, forKey: .scope)
-    if let value = try container.decodeIfPresent(Swift.String.self, forKey: .uid) {
-      self.uid = value
+    if let value = try container.decodeIfPresent(Boundary.Type_.self, forKey: .type) {
+      self.type = value
     }
-    if let value = try container.decodeIfPresent(Application.State.self, forKey: .state) {
-      self.state = value
+
+    var scope: ScopeOneOf? = nil
+    let scopeCheckAndSet = {
+      if scope != nil {
+        throw DecodingError.dataCorrupted(
+          DecodingError.Context(
+            codingPath: decoder.codingPath,
+            debugDescription: "Multiple values set for oneof 'scope'"))
+      }
+      scope = $0
     }
-    self.applicationProperties = try container.decodeIfPresent(
-      ApplicationProperties.self, forKey: .applicationProperties)
-    self.applicationType = try container.decodeIfPresent(
-      ApplicationType.self, forKey: .applicationType)
+    if let crmNode = try container.decodeIfPresent(Swift.String.self, forKey: .crmNode) {
+      try scopeCheckAndSet(.crmNode(crmNode))
+    }
+    self.scope = scope
     for key in container.allKeys where !CodingKeys._knownKeys.contains(key.stringValue) {
       self._unknownFields.json[key.stringValue] = try container.decode(
         GoogleWKT.WKTValue.self, forKey: key)
@@ -150,37 +112,38 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
   public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(self.name, forKey: .name)
-    try container.encode(self.displayName, forKey: .displayName)
-    try container.encode(self.description, forKey: .description)
-    try container.encodeIfPresent(self.attributes, forKey: .attributes)
     try container.encodeIfPresent(self.createTime, forKey: .createTime)
     try container.encodeIfPresent(self.updateTime, forKey: .updateTime)
-    try container.encodeIfPresent(self.scope, forKey: .scope)
-    try container.encode(self.uid, forKey: .uid)
-    try container.encode(self.state, forKey: .state)
-    try container.encodeIfPresent(self.applicationProperties, forKey: .applicationProperties)
-    try container.encodeIfPresent(self.applicationType, forKey: .applicationType)
+    try container.encode(self.type, forKey: .type)
+
+    if let choice = self.scope {
+      switch choice {
+      case .crmNode(let value):
+        try container.encode(value, forKey: .crmNode)
+      }
+    }
     for (key, value) in self._unknownFields.json {
       try container.encode(value, forKey: CodingKeys(stringValue: key))
     }
   }
 
-  /// Application state.
+  /// Boundary management type.
   ///
   /// - Note: Adding cases to this enumeration is not considered a breaking change.
   ///   Always include an `@unknown default:` case when switching over this type.
   ///   Do not pattern-match against `unknownStringValue` or `unknownIntValue`
   ///   expecting specific values to remain unparsed; future releases may promote
   ///   them to named cases.
-  public enum State: Codable, Equatable, Hashable, Sendable {
-    /// Unspecified state.
+  public enum Type_: Codable, Equatable, Hashable, Sendable {
+    /// Unspecified type.
     case unspecified
-    /// The Application is being created.
-    case creating
-    /// The Application is ready to register Services and Workloads.
-    case active
-    /// The Application is being deleted.
-    case deleting
+    /// The Boundary automatically includes all descendants of the CRM node.
+    case automatic
+    /// The list of projects within the Boundary is managed by the user.
+    case manual
+    /// The Boundary automatically includes all descendants of the CRM node,
+    /// which is set via App Management folder capability.
+    case managedAutomatic
     /// Encodes an unknown integer value.
     ///
     /// The most common cause for an unknown value is for the service to send
@@ -210,9 +173,9 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
     public var intValue: Int? {
       switch self {
       case .unspecified: return 0
-      case .creating: return 1
-      case .active: return 2
-      case .deleting: return 3
+      case .automatic: return 1
+      case .manual: return 2
+      case .managedAutomatic: return 3
       case .unknownIntValue(let v): return v
       case .unknownStringValue: return nil
       }
@@ -223,10 +186,10 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
     /// If the enumeration was initialized with an unknown integer value, this returns `nil`.
     public var stringValue: Swift.String? {
       switch self {
-      case .unspecified: return "STATE_UNSPECIFIED"
-      case .creating: return "CREATING"
-      case .active: return "ACTIVE"
-      case .deleting: return "DELETING"
+      case .unspecified: return "TYPE_UNSPECIFIED"
+      case .automatic: return "AUTOMATIC"
+      case .manual: return "MANUAL"
+      case .managedAutomatic: return "MANAGED_AUTOMATIC"
       case .unknownIntValue: return nil
       case .unknownStringValue(let v): return v
       }
@@ -234,26 +197,26 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
 
     /// Initialize from a string value.
     ///
-    /// If the value is unknown, this initializes to [`unknownStringValue`](doc:State/unknownStringValue(_:)).
+    /// If the value is unknown, this initializes to [`unknownStringValue`](doc:Type_/unknownStringValue(_:)).
     public init(stringValue: Swift.String) {
       switch stringValue {
-      case "STATE_UNSPECIFIED": self = .unspecified
-      case "CREATING": self = .creating
-      case "ACTIVE": self = .active
-      case "DELETING": self = .deleting
+      case "TYPE_UNSPECIFIED": self = .unspecified
+      case "AUTOMATIC": self = .automatic
+      case "MANUAL": self = .manual
+      case "MANAGED_AUTOMATIC": self = .managedAutomatic
       default: self = .unknownStringValue(stringValue)
       }
     }
 
     /// Initialize from an integer value.
     ///
-    /// If the value is unknown, this initializes to [`unknownIntValue`](doc:State/unknownIntValue(_:)).
+    /// If the value is unknown, this initializes to [`unknownIntValue`](doc:Type_/unknownIntValue(_:)).
     public init(intValue: Int) {
       switch intValue {
       case 0: self = .unspecified
-      case 1: self = .creating
-      case 2: self = .active
-      case 3: self = .deleting
+      case 1: self = .automatic
+      case 2: self = .manual
+      case 3: self = .managedAutomatic
       default: self = .unknownIntValue(intValue)
       }
     }
@@ -279,31 +242,39 @@ public struct Application: Codable, Equatable, GoogleWKT._AnyPackable,
     public func encode(to encoder: any Encoder) throws {
       var container = encoder.singleValueContainer()
       switch self {
-      case .unspecified: return try container.encode("STATE_UNSPECIFIED")
-      case .creating: return try container.encode("CREATING")
-      case .active: return try container.encode("ACTIVE")
-      case .deleting: return try container.encode("DELETING")
+      case .unspecified: return try container.encode("TYPE_UNSPECIFIED")
+      case .automatic: return try container.encode("AUTOMATIC")
+      case .manual: return try container.encode("MANUAL")
+      case .managedAutomatic: return try container.encode("MANAGED_AUTOMATIC")
       case .unknownIntValue(let v): return try container.encode(v)
       case .unknownStringValue(let v): return try container.encode(v)
       }
     }
   }
 
-  /// The type URL for `Application`: `"type.googleapis.com/google.cloud.apphub.v1.Application"`.
-  public static var _anyTypeUrl: Swift.String {
-    return "type.googleapis.com/google.cloud.apphub.v1.Application"
+  /// The scope defining the boundary.
+  public enum ScopeOneOf: Codable, Equatable, Sendable {
+    /// Optional. The resource name of the CRM node being attached to the
+    /// boundary.
+    /// Format: `projects/{project-number}` or `projects/{project-id}`
+    case crmNode(Swift.String)
   }
 
-  /// Initialize an instance of `Application` by unpacking from a `GoogleWKT.WKTAny`.
+  /// The type URL for `Boundary`: `"type.googleapis.com/google.cloud.apphub.v1.Boundary"`.
+  public static var _anyTypeUrl: Swift.String {
+    return "type.googleapis.com/google.cloud.apphub.v1.Boundary"
+  }
+
+  /// Initialize an instance of `Boundary` by unpacking from a `GoogleWKT.WKTAny`.
   ///
   /// - Parameter any: The `GoogleWKT.WKTAny` instance to unpack.
-  /// - Throws: An error if the type URL in `any` does not match `"type.googleapis.com/google.cloud.apphub.v1.Application"`,
+  /// - Throws: An error if the type URL in `any` does not match `"type.googleapis.com/google.cloud.apphub.v1.Boundary"`,
   ///   or if deserialization fails.
   public init(fromAny any: GoogleWKT.WKTAny) throws {
     self = try GoogleWKT._slowAnyDeserialize(Self.self, from: any)
   }
 
-  /// Packs this `Application` into a `GoogleWKT.WKTStruct` representation.
+  /// Packs this `Boundary` into a `GoogleWKT.WKTStruct` representation.
   ///
   /// - Throws: An error if serialization fails.
   public func _pack() throws -> GoogleWKT.WKTStruct {

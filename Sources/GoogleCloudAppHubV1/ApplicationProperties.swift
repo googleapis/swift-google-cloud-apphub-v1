@@ -17,37 +17,19 @@
 import Foundation
 @_spi(GoogleCloudInternal) public import GoogleWKT
 
-/// Properties of an underlying compute resource represented by the Workload.
-public struct WorkloadProperties: Codable, Equatable, GoogleWKT._AnyPackable,
+/// Additional system properties of an Application.
+public struct ApplicationProperties: Codable, Equatable, GoogleWKT._AnyPackable,
   Sendable
 {
-  /// Output only. The service project identifier that the underlying cloud
-  /// resource resides in. Empty for non-cloud resources.
-  public var gcpProject: Swift.String = Swift.String()
-
-  /// Output only. The location that the underlying compute resource resides in
-  /// (for example, us-west1).
-  public var location: Swift.String = Swift.String()
-
-  /// Output only. The location that the underlying compute resource resides in
-  /// if it is zonal (for example, us-west1-a).
-  public var zone: Swift.String = Swift.String()
-
-  /// Output only. The type of the workload.
-  public var functionalType: FunctionalType? = nil
-
-  /// Output only. Additional metadata specific to the resource type.
+  /// Output only. Additional metadata specific to the App Hub application.
   /// The key is a string that identifies the type of metadata and the value is
   /// the metadata contents specific to that type.
   /// Key format: `apphub.googleapis.com/{metadataType}`
   public var extendedMetadata: [Swift.String: ExtendedMetadata] = [:]
 
-  /// Output only. The identity associated with the workload.
-  public var identity: Identity? = nil
-
   @_spi(GoogleCloudInternal) public var _unknownFields: GoogleWKT._UnknownFields = .init()
 
-  /// Initialize a new instance of `WorkloadProperties`.
+  /// Initialize a new instance of `ApplicationProperties`.
   public init() {}
 
   /// Use `config` to return a new instance of this object, with some fields updated.
@@ -55,7 +37,7 @@ public struct WorkloadProperties: Codable, Equatable, GoogleWKT._AnyPackable,
   /// Commonly used to initialize the value, for example:
   ///
   /// ```
-  /// let value = WorkloadProperties().with { $0.gcpProject = ... }
+  /// let value = ApplicationProperties().with { $0.extendedMetadata = ... }
   /// ```
   public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
     var copy = self
@@ -69,42 +51,20 @@ public struct WorkloadProperties: Codable, Equatable, GoogleWKT._AnyPackable,
     init(stringValue: Swift.String) { self.stringValue = stringValue }
     init?(intValue: Swift.Int) { nil }
 
-    static let gcpProject = CodingKeys(stringValue: "gcpProject")
-    static let location = CodingKeys(stringValue: "location")
-    static let zone = CodingKeys(stringValue: "zone")
-    static let functionalType = CodingKeys(stringValue: "functionalType")
     static let extendedMetadata = CodingKeys(stringValue: "extendedMetadata")
-    static let identity = CodingKeys(stringValue: "identity")
 
     static let _knownKeys: Set<Swift.String> = [
-      "gcpProject",
-      "location",
-      "zone",
-      "functionalType",
-      "extendedMetadata",
-      "identity",
+      "extendedMetadata"
     ]
   }
 
   public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    if let value = try container.decodeIfPresent(Swift.String.self, forKey: .gcpProject) {
-      self.gcpProject = value
-    }
-    if let value = try container.decodeIfPresent(Swift.String.self, forKey: .location) {
-      self.location = value
-    }
-    if let value = try container.decodeIfPresent(Swift.String.self, forKey: .zone) {
-      self.zone = value
-    }
-    self.functionalType = try container.decodeIfPresent(
-      FunctionalType.self, forKey: .functionalType)
     if let value = try container.decodeIfPresent(
       [Swift.String: ExtendedMetadata].self, forKey: .extendedMetadata)
     {
       self.extendedMetadata = value
     }
-    self.identity = try container.decodeIfPresent(Identity.self, forKey: .identity)
     for key in container.allKeys where !CodingKeys._knownKeys.contains(key.stringValue) {
       self._unknownFields.json[key.stringValue] = try container.decode(
         GoogleWKT.WKTValue.self, forKey: key)
@@ -113,32 +73,27 @@ public struct WorkloadProperties: Codable, Equatable, GoogleWKT._AnyPackable,
 
   public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(self.gcpProject, forKey: .gcpProject)
-    try container.encode(self.location, forKey: .location)
-    try container.encode(self.zone, forKey: .zone)
-    try container.encodeIfPresent(self.functionalType, forKey: .functionalType)
     try container.encode(self.extendedMetadata, forKey: .extendedMetadata)
-    try container.encodeIfPresent(self.identity, forKey: .identity)
     for (key, value) in self._unknownFields.json {
       try container.encode(value, forKey: CodingKeys(stringValue: key))
     }
   }
 
-  /// The type URL for `WorkloadProperties`: `"type.googleapis.com/google.cloud.apphub.v1.WorkloadProperties"`.
+  /// The type URL for `ApplicationProperties`: `"type.googleapis.com/google.cloud.apphub.v1.ApplicationProperties"`.
   public static var _anyTypeUrl: Swift.String {
-    return "type.googleapis.com/google.cloud.apphub.v1.WorkloadProperties"
+    return "type.googleapis.com/google.cloud.apphub.v1.ApplicationProperties"
   }
 
-  /// Initialize an instance of `WorkloadProperties` by unpacking from a `GoogleWKT.WKTAny`.
+  /// Initialize an instance of `ApplicationProperties` by unpacking from a `GoogleWKT.WKTAny`.
   ///
   /// - Parameter any: The `GoogleWKT.WKTAny` instance to unpack.
-  /// - Throws: An error if the type URL in `any` does not match `"type.googleapis.com/google.cloud.apphub.v1.WorkloadProperties"`,
+  /// - Throws: An error if the type URL in `any` does not match `"type.googleapis.com/google.cloud.apphub.v1.ApplicationProperties"`,
   ///   or if deserialization fails.
   public init(fromAny any: GoogleWKT.WKTAny) throws {
     self = try GoogleWKT._slowAnyDeserialize(Self.self, from: any)
   }
 
-  /// Packs this `WorkloadProperties` into a `GoogleWKT.WKTStruct` representation.
+  /// Packs this `ApplicationProperties` into a `GoogleWKT.WKTStruct` representation.
   ///
   /// - Throws: An error if serialization fails.
   public func _pack() throws -> GoogleWKT.WKTStruct {

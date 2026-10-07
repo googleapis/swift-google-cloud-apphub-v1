@@ -17,23 +17,19 @@
 import Foundation
 @_spi(GoogleCloudInternal) public import GoogleWKT
 
-/// Request for UpdateApplication.
-public struct UpdateApplicationRequest: Codable, Equatable, GoogleWKT._AnyPackable,
+/// Request message for AppHub.UpdateBoundary.
+public struct UpdateBoundaryRequest: Codable, Equatable, GoogleWKT._AnyPackable,
   Sendable
 {
   /// Optional. Field mask is used to specify the fields to be overwritten in the
-  /// Application resource by the update.
+  /// Boundary resource by the update.
   /// The fields specified in the update_mask are relative to the resource, not
-  /// the full request.
-  /// The API changes the values of the fields as specified in the update_mask.
-  /// The API ignores the values of all fields not covered by the update_mask.
-  /// You can also unset a field by not specifying it in the updated message, but
-  /// adding the field to the mask. This clears whatever value the field
-  /// previously had.
+  /// the full request. A field will be overwritten if it is in the mask. If the
+  /// user does not provide a mask then all fields will be overwritten.
   public var updateMask: GoogleWKT.WKTFieldMask? = nil
 
-  /// Required. The resource being updated.
-  public var application: Application? = nil
+  /// Required. The boundary to update.
+  public var boundary: Boundary? = nil
 
   /// Optional. An optional request ID to identify requests. Specify a unique
   /// request ID so that if you must retry your request, the server will know to
@@ -52,7 +48,7 @@ public struct UpdateApplicationRequest: Codable, Equatable, GoogleWKT._AnyPackab
 
   @_spi(GoogleCloudInternal) public var _unknownFields: GoogleWKT._UnknownFields = .init()
 
-  /// Initialize a new instance of `UpdateApplicationRequest`.
+  /// Initialize a new instance of `UpdateBoundaryRequest`.
   public init() {}
 
   /// Use `config` to return a new instance of this object, with some fields updated.
@@ -60,7 +56,7 @@ public struct UpdateApplicationRequest: Codable, Equatable, GoogleWKT._AnyPackab
   /// Commonly used to initialize the value, for example:
   ///
   /// ```
-  /// let value = UpdateApplicationRequest().with { $0.updateMask = ... }
+  /// let value = UpdateBoundaryRequest().with { $0.updateMask = ... }
   /// ```
   public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
     var copy = self
@@ -75,12 +71,12 @@ public struct UpdateApplicationRequest: Codable, Equatable, GoogleWKT._AnyPackab
     init?(intValue: Swift.Int) { nil }
 
     static let updateMask = CodingKeys(stringValue: "updateMask")
-    static let application = CodingKeys(stringValue: "application")
+    static let boundary = CodingKeys(stringValue: "boundary")
     static let requestId = CodingKeys(stringValue: "requestId")
 
     static let _knownKeys: Set<Swift.String> = [
       "updateMask",
-      "application",
+      "boundary",
       "requestId",
     ]
   }
@@ -89,7 +85,7 @@ public struct UpdateApplicationRequest: Codable, Equatable, GoogleWKT._AnyPackab
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.updateMask = try container.decodeIfPresent(
       GoogleWKT.WKTFieldMask.self, forKey: .updateMask)
-    self.application = try container.decodeIfPresent(Application.self, forKey: .application)
+    self.boundary = try container.decodeIfPresent(Boundary.self, forKey: .boundary)
     if let value = try container.decodeIfPresent(Swift.String.self, forKey: .requestId) {
       self.requestId = value
     }
@@ -102,28 +98,28 @@ public struct UpdateApplicationRequest: Codable, Equatable, GoogleWKT._AnyPackab
   public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encodeIfPresent(self.updateMask, forKey: .updateMask)
-    try container.encodeIfPresent(self.application, forKey: .application)
+    try container.encodeIfPresent(self.boundary, forKey: .boundary)
     try container.encode(self.requestId, forKey: .requestId)
     for (key, value) in self._unknownFields.json {
       try container.encode(value, forKey: CodingKeys(stringValue: key))
     }
   }
 
-  /// The type URL for `UpdateApplicationRequest`: `"type.googleapis.com/google.cloud.apphub.v1.UpdateApplicationRequest"`.
+  /// The type URL for `UpdateBoundaryRequest`: `"type.googleapis.com/google.cloud.apphub.v1.UpdateBoundaryRequest"`.
   public static var _anyTypeUrl: Swift.String {
-    return "type.googleapis.com/google.cloud.apphub.v1.UpdateApplicationRequest"
+    return "type.googleapis.com/google.cloud.apphub.v1.UpdateBoundaryRequest"
   }
 
-  /// Initialize an instance of `UpdateApplicationRequest` by unpacking from a `GoogleWKT.WKTAny`.
+  /// Initialize an instance of `UpdateBoundaryRequest` by unpacking from a `GoogleWKT.WKTAny`.
   ///
   /// - Parameter any: The `GoogleWKT.WKTAny` instance to unpack.
-  /// - Throws: An error if the type URL in `any` does not match `"type.googleapis.com/google.cloud.apphub.v1.UpdateApplicationRequest"`,
+  /// - Throws: An error if the type URL in `any` does not match `"type.googleapis.com/google.cloud.apphub.v1.UpdateBoundaryRequest"`,
   ///   or if deserialization fails.
   public init(fromAny any: GoogleWKT.WKTAny) throws {
     self = try GoogleWKT._slowAnyDeserialize(Self.self, from: any)
   }
 
-  /// Packs this `UpdateApplicationRequest` into a `GoogleWKT.WKTStruct` representation.
+  /// Packs this `UpdateBoundaryRequest` into a `GoogleWKT.WKTStruct` representation.
   ///
   /// - Throws: An error if serialization fails.
   public func _pack() throws -> GoogleWKT.WKTStruct {
